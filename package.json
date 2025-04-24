@@ -1,0 +1,106 @@
+{
+    "name": "code-obfuscator",
+    "displayName": "Code Obfuscator",
+    "description": "Obfuscate sensitive information in your code before sharing with AI services",
+    "version": "0.0.1",
+    "publisher": "test-publisher",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onView:codeObfuscatorRules",
+        "onCommand:codeObfuscator.createRuleFromSelection",
+        "onCommand:codeObfuscator.applyRules",
+        "onCommand:codeObfuscator.exportRules",
+        "onCommand:codeObfuscator.importRules"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "codeObfuscator.createRuleFromSelection",
+                "title": "Create Obfuscation Rule from Selection"
+            },
+            {
+                "command": "codeObfuscator.applyRules",
+                "title": "Apply Obfuscation Rules"
+            },
+            {
+                "command": "codeObfuscator.exportRules",
+                "title": "Export Obfuscation Rules"
+            },
+            {
+                "command": "codeObfuscator.importRules",
+                "title": "Import Obfuscation Rules"
+            },
+            {
+                "command": "codeObfuscator.editRule",
+                "title": "Edit Obfuscation Rule"
+            },
+            {
+                "command": "codeObfuscator.deleteRule",
+                "title": "Delete Obfuscation Rule"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "codeObfuscator.createRuleFromSelection",
+                    "when": "editorHasSelection",
+                    "group": "codeObfuscator"
+                },
+                {
+                    "command": "codeObfuscator.applyRules",
+                    "group": "codeObfuscator"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "codeObfuscator.editRule",
+                    "when": "viewItem == obfuscationRule",
+                    "group": "inline"
+                },
+                {
+                    "command": "codeObfuscator.deleteRule",
+                    "when": "viewItem == obfuscationRule"
+                }
+            ]
+        },
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "code-obfuscator-sidebar",
+                    "title": "Code Obfuscator",
+                    "icon": "$(shield)"
+                }
+            ]
+        },
+        "views": {
+            "code-obfuscator-sidebar": [
+                {
+                    "id": "codeObfuscatorRules",
+                    "name": "Obfuscation Rules"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.60.0",
+        "@types/node": "^16.11.7",
+        "@typescript-eslint/eslint-plugin": "^5.30.0",
+        "@typescript-eslint/parser": "^5.30.0",
+        "eslint": "^8.18.0",
+        "typescript": "^4.7.4"
+    }
+}
