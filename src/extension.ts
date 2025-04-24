@@ -91,6 +91,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
         })
     );
+    vscode.commands.executeCommand('workbench.view.extension.code-obfuscator-sidebar');
     // Add status bar item
     const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
     statusBarItem.text = "$(shield) Obfuscate";
