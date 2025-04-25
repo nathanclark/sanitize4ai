@@ -2,7 +2,7 @@
     "name": "code-obfuscator",
     "displayName": "Sanitize 4 AI. A Code Obfuscator",
     "description": "Obfuscate sensitive information in your code before sharing with AI services",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "publisher": "nathanclark",
     "repository": {
         "type": "git",
