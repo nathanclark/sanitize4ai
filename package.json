@@ -1,9 +1,9 @@
 {
     "name": "code-obfuscator",
-    "displayName": "Code Obfuscator",
+    "displayName": "Sanitize 4 AI. A Code Obfuscator",
     "description": "Obfuscate sensitive information in your code before sharing with AI services",
     "version": "0.0.1",
-    "publisher": "test-publisher",
+    "publisher": "nathanclark",
     "engines": {
         "vscode": "^1.60.0"
     },
