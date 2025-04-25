@@ -101,11 +101,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgements
-
-- Icon made by [Author] from [Source]
-- Thanks to all contributors who have helped shape this extension
-
 ---
 
 **Made with ❤️ by [Nathan Clark](https://bsky.app/profile/dadfacts.bsky.social)**
