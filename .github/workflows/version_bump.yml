@@ -1,0 +1,100 @@
+name: Bump Version Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: 'Type of version bump'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      custom_version:
+        description: 'Custom version (optional, overrides bump_type)'
+        required: false
+        type: string
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install -g semver
+
+      - name: Get current version
+        id: get_version
+        run: |
+          # Get the latest tag
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          # Remove 'v' prefix if present
+          CURRENT_VERSION=${LATEST_TAG#v}
+          echo "Current version: $CURRENT_VERSION"
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Calculate new version
+        id: calc_version
+        run: |
+          CURRENT_VERSION="${{ steps.get_version.outputs.current_version }}"
+
+          if [[ -n "${{ github.event.inputs.custom_version }}" ]]; then
+            # Use custom version if provided
+            NEW_VERSION="${{ github.event.inputs.custom_version }}"
+          else
+            # Use semver to calculate the new version based on bump type
+            BUMP_TYPE="${{ github.event.inputs.bump_type }}"
+            NEW_VERSION=$(semver -i $BUMP_TYPE $CURRENT_VERSION)
+          fi
+
+          echo "New version: $NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create and push new tag
+        run: |
+          NEW_VERSION="${{ steps.calc_version.outputs.new_version }}"
+          NEW_TAG="v$NEW_VERSION"
+
+          # Configure Git user
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # Create annotated tag
+          git tag -a $NEW_TAG -m "Release $NEW_TAG"
+
+          # Push the tag
+          git push origin $NEW_TAG
+
+          echo "Successfully created and pushed tag: $NEW_TAG"
+
+      - name: Update version in package.json (if exists)
+        run: |
+          if [ -f "package.json" ]; then
+            NEW_VERSION="${{ steps.calc_version.outputs.new_version }}"
+            # Update version in package.json
+            sed -i "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" package.json
+            
+            # Commit and push changes
+            git add package.json
+            git commit -m "chore: bump version to $NEW_VERSION"
+            git push
+            
+            echo "Updated version in package.json to $NEW_VERSION"
+          else
+            echo "No package.json found, skipping version update in files"
+          fi
+        continue-on-error: true
