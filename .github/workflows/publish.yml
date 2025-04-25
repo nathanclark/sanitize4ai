@@ -27,7 +27,7 @@ jobs:
 
       - name: Publish to Visual Studio Marketplace
         if: success()
-        run: npx vsce publish -p ${{ secrets.VSCE_PAT }}
+        run: npx @vscode/vsce publish -p ${{ secrets.VSCE_PAT }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
