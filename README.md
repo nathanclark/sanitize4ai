@@ -1,4 +1,4 @@
-# Code Obfuscator for VS Code
+# Sanitize for AI. A Code Obfuscator for VS Code
 
 ![Code Obfuscator Logo](images/icon_small.png)
 
@@ -28,7 +28,7 @@ This extension allows you to easily replace sensitive information with generic p
 
 1. Open VS Code
 2. Go to Extensions (Ctrl+Shift+X)
-3. Search for "Code Obfuscator"
+3. Search for "Sanitize for AI"
 4. Click Install
 
 Or install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yourpublisher.code-obfuscator).
