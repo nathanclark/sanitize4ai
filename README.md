@@ -87,20 +87,4 @@ A: Make sure the rule is enabled in the sidebar view. Check if you have "Case se
 **Q: The extension doesn't start properly.**  
 A: Try reloading VS Code window (Ctrl+R) or reinstalling the extension.
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
 **Made with ❤️ by [Nathan Clark](https://bsky.app/profile/dadfacts.bsky.social)**
